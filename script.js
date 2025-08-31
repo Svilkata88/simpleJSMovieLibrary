@@ -66,35 +66,89 @@
             return data; 
         }
 
+        // html card builder
+        class MovieCardBuilder {
+            constructor(movie) {
+                this.movie = movie;
+                this.showHeart = true;
+                this.showCloseBtn = true;
+            }
+
+            hideHeart() {
+                this.showHeart = false;
+                return this;
+            }
+
+            hideCloseBtn() {
+                this.showCloseBtn = false;
+                return this;
+            }
+
+            build() {
+                const movie = this.movie;
+                const heartHTML = this.showHeart ? `<i class="fa-solid fa-heart" id="fav"></i>` : '';
+                const closeHTML = this.showCloseBtn ? `<i class="fa-regular fa-circle-xmark" id="details-close-btn"></i>` : '';
+
+                return `
+                <div class='details-container'>
+                    <div class='details-img'>
+                    <img src="${movie.Poster}" alt="${movie.Title}">
+                    </div>
+                    <div class='details-text'>
+                    <div class="card-heading">
+                        <h2>${movie.Title} (${movie.Year})</h2>
+                        <p><span>Director/s:</span> ${movie.Director}</p>
+                        <div id="rating-container">
+                        <i class="fa-solid fa-star"></i>
+                        <p>${movie.imdbRating}</p>
+                        </div>
+                    </div>
+                    <p><span>Genre:</span> ${movie.Genre}</p>
+                    <p><span>Actors:</span> ${movie.Actors}</p>
+                    <p><span>Country:</span> ${movie.Country}</p>
+                    <p><span>Movie overview:</span> ${movie.Plot}</p>
+                    ${heartHTML}
+                    ${closeHTML}
+                    </div>
+                </div>
+                `;
+            }
+        }
+
+
         // renders details card from given movie object!
         function createCard(movie) {
             const moviedDetails = document.getElementById("movie-details");
 
             moviedDetails.style.display = 'block';
-            moviedDetails.innerHTML = `               
-                <div class='details-container'>     
-                    <div class='details-img'>
-                        <img src="${movie.Poster}" alt="${movie.Title}">
-                    </div>
-                    <div class='details-text'>
-                        <div class="card-heading">
-                            <h2>${movie.Title} (${movie.Year})</h2>
-                            <p><span>Director/s:</span> ${movie.Director}</p>
-                            <div id="rating-container">
-                                <i class="fa-solid fa-star"></i>
-                                <p>${movie.imdbRating}</p>
-                            </div>
-                        </div>
+
+            const cardHTML = new MovieCardBuilder(movie).build();
+            moviedDetails.innerHTML = cardHTML;
+
+            // moviedDetails.innerHTML = `               
+            //     <div class='details-container'>     
+            //         <div class='details-img'>
+            //             <img src="${movie.Poster}" alt="${movie.Title}">
+            //         </div>
+            //         <div class='details-text'>
+            //             <div class="card-heading">
+            //                 <h2>${movie.Title} (${movie.Year})</h2>
+            //                 <p><span>Director/s:</span> ${movie.Director}</p>
+            //                 <div id="rating-container">
+            //                     <i class="fa-solid fa-star"></i>
+            //                     <p>${movie.imdbRating}</p>
+            //                 </div>
+            //             </div>
                         
-                        <p><span>Genre:</span> ${movie.Genre}</p>
-                        <p><span>Actors:</span> ${movie.Actors}</p>
-                        <p><span>Country:</span> ${movie.Country}</p>
-                        <p><span>Movie overview:</span> ${movie.Plot}</p>
-                        <i class="fa-solid fa-heart" id="fav"></i>
-                        <i class="fa-regular fa-circle-xmark" id="details-close-btn"></i>
-                    </div>
-                </div>
-            `;
+            //             <p><span>Genre:</span> ${movie.Genre}</p>
+            //             <p><span>Actors:</span> ${movie.Actors}</p>
+            //             <p><span>Country:</span> ${movie.Country}</p>
+            //             <p><span>Movie overview:</span> ${movie.Plot}</p>
+            //             <i class="fa-solid fa-heart" id="fav"></i>
+            //             <i class="fa-regular fa-circle-xmark" id="details-close-btn"></i>
+            //         </div>
+            //     </div>
+            // `;
             
             const favorites = JSON.parse(localStorage.getItem('favorites')) || [];
             const favElement = document.getElementById('fav');
