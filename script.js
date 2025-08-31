@@ -1,7 +1,8 @@
 ( ()=> {
-        const API_KEY = 'dbf15341';
+        const API_KEY = config.API_KEY;
         const API_BASE_URL = `http://www.omdbapi.com/`;
         const API_URL = `${API_BASE_URL}?apikey=${API_KEY}`;
+        console.log(API_KEY)
 
         const searchValue = document.getElementById('search-input');
         const searchBtn  = document.getElementById('search-btn');
