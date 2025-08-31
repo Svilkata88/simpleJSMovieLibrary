@@ -23,6 +23,7 @@ main {
     padding: 0 25px 50px 25px ;
 }
 
+/* Navigation */
 nav {
     display: flex;
     align-items: center;
@@ -47,13 +48,14 @@ nav {
     padding-top: 5px;
 }
 
+/* Movies list and card section */
 section {
     display: flex;
+    justify-content: space-between;
 }
 section aside {
     min-width: 15%;
 }
-
 label[for="search-input"] {
   font-weight: bold;
   color: var(--TEXT-COLOR);
@@ -92,10 +94,7 @@ input[type='Text'] {
     cursor: pointer;
 }
 
-section {
-    display: flex;
-    justify-content: space-between;
-}
+/* Movies list  */
 #not-found {
     display: none;
     position: absolute;
@@ -227,7 +226,7 @@ section {
     color: rgb(228, 46, 46);
 }
 
-
+/* Favotites  */
 #favorites-list-container {
     width: 200px;
     background-color: #212222;
